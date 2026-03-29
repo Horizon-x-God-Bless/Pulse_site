@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse | About Us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .about-container {
+            max-width: 1000px;
+            margin: 100px auto 60px;
+            padding: 0 20px;
+        }
+        
+        .about-hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .about-hero h1 {
+            font-size: 3rem;
+            color: #0ef;
+            margin-bottom: 20px;
+        }
+        
+        .about-hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: #111;
+            border: 1px solid #0ef;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 238, 255, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #0ef;
+            margin-bottom: 15px;
+        }
+        
+        .process-steps {
+            background: #111;
+            border: 1px solid #0ef;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+        
+        .process-steps h2 {
+            text-align: center;
+            color: #0ef;
+            margin-bottom: 40px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            gap: 20px;
+        }
+        
+        .step-number {
+            background: #0ef;
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h2 class="brand">Pulse</h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="about-container">
+        <section class="about-hero">
+            <h1>About Pulse</h1>
+            <p>Your trusted partner for premium laptops and seamless shopping experiences. We bridge the gap between international markets and local customers.</p>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Fast Delivery</h3>
+                <p>Get your laptops delivered nationwide within 10-15 days with real-time tracking.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Quality Guaranteed</h3>
+                <p>Every laptop is thoroughly tested and comes with a satisfaction guarantee.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Secure Payments</h3>
+                <p>Multiple payment options with end-to-end encryption for your safety.</p>
+            </div>
+        </section>
+
+        <section class="process-steps">
+            <h2>How It Works</h2>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Browse & Select</h4>
+                    <p>Explore our curated collection of premium laptops and choose your perfect device.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Place Order</h4>
+                    <p>Complete your order with secure payment and provide delivery details.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>We Source & Import</h4>
+                    <p>We handle all the logistics, sourcing, and import processes for you.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Delivery & Support</h4>
+                    <p>Receive your laptop with full setup support and after-sales service.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission">
+            <h2 style="text-align: center; color: #0ef; margin-bottom: 30px;">Our Mission</h2>
+            <p style="text-align: center; font-size: 1.1rem; color: #ccc; max-width: 800px; margin: 0 auto;">
+                At Pulse, we believe everyone deserves access to quality technology. We're committed to making premium laptops 
+                accessible and affordable while providing exceptional customer service and support throughout your journey.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        // Add loading screen if you implemented it
+        window.addEventListener('load', function() {
+            // Your loading screen logic here
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+[file name]: shop.html
+[file content begin]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse | Shop</title>
+  <link rel="stylesheet" href="css/shop.css" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="intro">
+    <h1 class="logo-header">
+        <span class="logo">Pulse</span>
+    </h1>
+    <p class="slogan">Limitless possibilities</p>
+</div>
+
+  <header>
+    <nav>
+      <h2 class="brand">Pulse</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="shop">
+    <h1>Our Laptops</h1>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button data-filter="All" class="active">All</button>
+      <button data-filter="New">New</button>
+      <button data-filter="Refurbished">Refurbished</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <script>
+    window.addEventListener('load', () =>{
+        const intro = document.querySelector('.intro');
+        setTimeout(() => {
+
+            intro.classList.add('fade-out');
+        }, 2000);
+    });
+</script>
+  <script src="js/shop.js"></script>
+
+</body>
+</html>
