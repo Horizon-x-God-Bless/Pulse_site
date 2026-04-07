@@ -1,58 +1,42 @@
-[file name]: shop.html
-[file content begin]
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pulse | Shop</title>
-  <link rel="stylesheet" href="css/shop.css" />
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse | Shop</title>
+    <link rel="stylesheet" href="css/shop.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
 </head>
 <body>
-  <div class="intro">
-    <h1 class="logo-header">
-        <span class="logo">Pulse</span>
-    </h1>
-    <p class="slogan">Limitless possibilities</p>
-</div>
-
-  <header>
-    <nav>
-      <h2 class="brand">Pulse</h2>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html" class="active">Shop</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="shop">
-    <h1>Our Laptops</h1>
-
-    <!-- Filter Buttons -->
-    <div class="filter-buttons">
-      <button data-filter="All" class="active">All</button>
-      <button data-filter="New">New</button>
-      <button data-filter="Refurbished">Refurbished</button>
-    </div>
-
-    <!-- Product Grid -->
-    <div class="product-grid" id="productGrid"></div>
-  </section>
-
-  <script>
-    window.addEventListener('load', () =>{
-        const intro = document.querySelector('.intro');
-        setTimeout(() => {
-
-            intro.classList.add('fade-out');
-        }, 2000);
-    });
-</script>
-  <script src="js/shop.js"></script>
-
+    <header>
+        <nav>
+            <h2 class="brand"><span style="background:#0ef; color:#000; padding:4px 12px; border-radius:8px;">Pulse</span></h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="shop">
+        <h1>Our Laptops</h1>
+        <div class="filter-buttons">
+            <button data-filter="All" class="active">All</button>
+            <button data-filter="New">New</button>
+            <button data-filter="Refurbished">Refurbished</button>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+    </section>
+    <footer style="background:#111; border-top:1px solid #0ef; padding:40px 20px 20px; margin-top:60px;">
+        <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:30px;">
+            <div><h3 style="color:#0ef;">Pulse</h3><p style="color:#ccc;">Limitless possibilities</p></div>
+            <div><h4>Quick Links</h4><ul style="list-style:none; padding:0;"><li><a href="shop.html" style="color:#ccc; text-decoration:none;">Shop</a></li><li><a href="about.html" style="color:#ccc; text-decoration:none;">About</a></li><li><a href="contact.html" style="color:#ccc; text-decoration:none;">Contact</a></li></ul></div>
+            <div><h4>Contact</h4><p style="color:#ccc;">WhatsApp: +260 77 308 2934</p><p style="color:#ccc;">Email: hello@pulse.com</p></div>
+        </div>
+        <div style="text-align:center; margin-top:30px; padding-top:20px; border-top:1px solid #333; color:#666;">&copy; 2026 Pulse. All rights reserved.</div>
+    </footer>
+    <script src="js/shop.js"></script>
 </body>
 </html>

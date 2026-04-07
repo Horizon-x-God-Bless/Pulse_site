@@ -1,115 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pulse | Order</title>
-  <link rel="stylesheet" href="css/order.css">
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse | Order</title>
+    <link rel="stylesheet" href="css/order.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
 </head>
 <body>
-  <div class="intro">
-    <h1 class="logo-header">
-        <span class="logo">Pulse</span>
-    </h1>
-    <p class="slogan">Limitless possibilities</p>
-</div>
-  <header>
-    <nav>
-      <h2 class="brand">Pulse</h2>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="order-container">
-    <h1>Complete Your Order</h1>
-    
-    <!-- Product Summary -->
-    <div class="product-summary">
-      <img id="orderImage" src="" alt="Product Image">
-      <div class="details">
-        <h2 id="orderName">Loading...</h2>
-        <p id="orderCondition" class="condition"></p>
-        <p id="orderPrice" class="price"></p>
-      </div>
-    </div>
-
-    <!-- Order Form -->
-    <form id="orderForm">
-      <input type="hidden" id="productId" name="productId">
-      
-      <div class="form-section">
-        <h3>Your Information</h3>
-        <input type="text" name="name" placeholder="Full Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="tel" name="phone" placeholder="Phone Number" required>
-        <textarea name="address" placeholder="Delivery Address(Town and Province)" rows="3" required></textarea>
-      </div>
-
-      <div class="form-section">
-        <h3>Payment Method</h3>
-        <div class="payment-options">
-          <!-- Payment options will be dynamically loaded by JavaScript -->
-          <!-- They will show as enabled/disabled based on admin settings -->
+    <header>
+        <nav>
+            <h2 class="brand"><span style="background:#0ef; color:#000; padding:4px 12px; border-radius:8px;">Pulse</span></h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="order-container">
+        <h1>Complete Your Order</h1>
+        <div class="product-summary">
+            <img id="orderImage" src="" alt="Product Image">
+            <div class="details">
+                <h2 id="orderName">Loading...</h2>
+                <p id="orderCondition" class="condition"></p>
+                <p id="orderPrice" class="price"></p>
+            </div>
         </div>
-      </div>
-
-      <!-- Dynamic Payment Instructions -->
-      <div id="paymentInstructions" class="payment-instructions hidden">
-        <h3>Payment Instructions</h3>
-        
-        <!-- MTN Instructions -->
-        <div id="mtnInstructions" class="instruction hidden">
-          <p><strong>Send payment to MTN Number:</strong> Loading...</p>
-          <p><strong>Account Name:</strong> Loading...</p>
-          <p>Include your name as reference</p>
+        <form id="orderForm">
+            <input type="hidden" id="productId" name="productId">
+            <div class="form-section">
+                <h3>Your Information</h3>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+                <textarea name="address" placeholder="Delivery Address (Town and Province)" rows="3" required></textarea>
+            </div>
+            <div class="form-section">
+                <h3>Payment Method</h3>
+                <div class="payment-options"></div>
+            </div>
+            <div id="paymentInstructions" class="payment-instructions hidden">
+                <h3>Payment Instructions</h3>
+                <div id="mtnInstructions" class="instruction hidden"></div>
+                <div id="airtelInstructions" class="instruction hidden"></div>
+                <div id="cardInstructions" class="instruction hidden"></div>
+            </div>
+            <button type="submit" class="btn" id="submitBtn" disabled>Proceed to WhatsApp</button>
+        </form>
+        <div id="thankYouMessage" class="hidden">
+            <div class="success-message">
+                <h3>✅ Order Received!</h3>
+                <p>You'll be redirected to WhatsApp to complete your order.</p>
+                <p>Please send your payment proof there.</p>
+            </div>
         </div>
-        
-        <!-- Airtel Instructions -->
-        <div id="airtelInstructions" class="instruction hidden">
-          <p><strong>Send payment to Airtel Number:</strong> Loading...</p>
-          <p><strong>Account Name:</strong> Loading...</p>
-          <p>Include your name as reference</p>
+    </main>
+    <footer style="background:#111; border-top:1px solid #0ef; padding:40px 20px 20px; margin-top:60px;">
+        <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:30px;">
+            <div><h3 style="color:#0ef;">Pulse</h3><p style="color:#ccc;">Limitless possibilities</p></div>
+            <div><h4>Quick Links</h4><ul style="list-style:none; padding:0;"><li><a href="shop.html" style="color:#ccc; text-decoration:none;">Shop</a></li><li><a href="about.html" style="color:#ccc; text-decoration:none;">About</a></li><li><a href="contact.html" style="color:#ccc; text-decoration:none;">Contact</a></li></ul></div>
+            <div><h4>Contact</h4><p style="color:#ccc;">WhatsApp: +260 77 308 2934</p><p style="color:#ccc;">Email: hello@pulse.com</p></div>
         </div>
-        
-        <!-- Card Instructions -->
-        <div id="cardInstructions" class="instruction hidden">
-          <p><strong>Card Payments</strong></p>
-          <p>Secure card payments - coming soon!</p>
-          <p>We apologize for any inconvenience.</p>
-        </div>
-      </div>
-
-      <button type="submit" class="btn" id="submitBtn" disabled>Proceed to WhatsApp</button>
-    </form>
-
-    <!-- Success Message -->
-    <div id="thankYouMessage" class="hidden">
-      <div class="success-message">
-        <h3>✅ Order Received!</h3>
-        <p>You'll be redirected to WhatsApp to complete your order.</p>
-        <p>Please send your payment proof there.</p>
-      </div>
-    </div>
-  </main>
-
-  <script src="js/order.js"></script>
-<div class="loading-screen" id="loadingScreen">
-</div>
-<script>
-  window.addEventListener('load', () =>{
-      const intro = document.querySelector('.intro');
-      setTimeout(() => {
-
-          intro.classList.add('fade-out');
-      }, 2000);
-  });
-</script>
-<script src="js/navigation.js"></script>
+        <div style="text-align:center; margin-top:30px; padding-top:20px; border-top:1px solid #333; color:#666;">&copy; 2026 Pulse. All rights reserved.</div>
+    </footer>
+    <script src="js/order.js"></script>
 </body>
 </html>
