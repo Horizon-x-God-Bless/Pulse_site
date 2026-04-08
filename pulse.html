@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pulse — Brought to You by Horizon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9973A;
+    --gold-light: #E2B455;
+    --gold-dark: #A07828;
+    --bg: #F9F8F6;
+    --bg2: #FFFFFF;
+    --bg3: #F2F0EC;
+    --text: #1A1816;
+    --text2: #5A5650;
+    --text3: #8A857E;
+    --border: #E5E2DC;
+    --shadow: 0 2px 20px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  [data-theme="dark"] {
+    --bg: #111010;
+    --bg2: #1C1B1A;
+    --bg3: #252422;
+    --text: #F5F3EF;
+    --text2: #B0ABA4;
+    --text3: #6E6860;
+    --border: #2E2C2A;
+    --shadow: 0 2px 20px rgba(0,0,0,0.3);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background var(--transition), color var(--transition);
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    transition: background var(--transition), border-color var(--transition);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.9rem; font-weight: 500;
+    color: var(--text2);
+    transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .theme-toggle {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 50px; padding: 6px 14px;
+    cursor: pointer; font-size: 0.85rem; font-weight: 500;
+    color: var(--text2); transition: all var(--transition);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-nav {
+    background: var(--gold); color: #fff;
+    border: none; border-radius: 50px;
+    padding: 9px 22px; font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; transition: background var(--transition), transform var(--transition);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-nav:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+  /* Mobile hamburger */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,151,58,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 80% at 90% 70%, rgba(201,151,58,0.05) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--text) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--text) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,151,58,0.12); border: 1px solid rgba(201,151,58,0.3);
+    border-radius: 50px; padding: 6px 16px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 1.5s infinite; }
+  @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+  .hero h1 {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.04em;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+  .hero-sub {
+    font-size: 1.15rem; color: var(--text2); line-height: 1.7;
+    margin: 1.5rem 0 2.5rem;
+    max-width: 520px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--gold); color: #fff;
+    border: none; border-radius: 50px;
+    padding: 14px 32px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all var(--transition);
+    font-family: 'DM Sans', sans-serif;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,151,58,0.35); }
+  .btn-secondary {
+    background: transparent; color: var(--text);
+    border: 1.5px solid var(--border); border-radius: 50px;
+    padding: 14px 32px; font-size: 1rem; font-weight: 500;
+    cursor: pointer; transition: all var(--transition);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3.5rem;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .stat { }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--gold); }
+  .stat-label { font-size: 0.8rem; color: var(--text3); margin-top: 2px; }
+
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    width: min(45%, 520px);
+    z-index: 1;
+    animation: fadeIn 1s 0.3s ease both;
+  }
+  .hero-card-float {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px;
+    box-shadow: var(--shadow-lg);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .hero-card-img {
+    width: 100%; aspect-ratio: 16/10;
+    background: linear-gradient(135deg, var(--bg3) 0%, rgba(201,151,58,0.1) 100%);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; margin-bottom: 16px;
+  }
+  .hero-card-info h4 { font-size: 1rem; font-weight: 700; }
+  .hero-card-info p { font-size: 0.8rem; color: var(--text3); margin-top: 4px; }
+  .hero-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+  .hero-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--gold); }
+  .hero-badge { background: rgba(201,151,58,0.12); color: var(--gold); font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 50px; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 5%; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .section-sub { color: var(--text2); margin-top: 0.8rem; font-size: 1rem; max-width: 520px; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+  .view-all { color: var(--gold); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; transition: gap var(--transition); }
+  .view-all:hover { gap: 10px; }
+
+  /* ── CATEGORIES ── */
+  .categories-bg { background: var(--bg3); }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+  .cat-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 20px;
+    text-align: center; cursor: pointer;
+    transition: all var(--transition);
+    position: relative; overflow: hidden;
+  }
+  .cat-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); transform: scaleX(0); transition: transform var(--transition);
+  }
+  .cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+  .cat-card:hover::after { transform: scaleX(1); }
+  .cat-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; }
+  .cat-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; }
+  .cat-count { font-size: 0.78rem; color: var(--text3); margin-top: 4px; }
+
+  /* ── PRODUCTS ── */
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+  .product-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    transition: all var(--transition); position: relative;
+  }
+  .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(201,151,58,0.3); }
+  .product-img {
+    aspect-ratio: 4/3; background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem; position: relative;
+    overflow: hidden;
+  }
+  .product-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(201,151,58,0.08));
+  }
+  .product-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--gold); color: #fff;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;
+    padding: 4px 10px; border-radius: 50px; text-transform: uppercase; z-index: 1;
+  }
+  .product-badge.order { background: var(--bg2); color: var(--text2); border: 1px solid var(--border); }
+  .product-body { padding: 18px; }
+  .product-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; line-height: 1.3; }
+  .product-desc { font-size: 0.83rem; color: var(--text3); margin-top: 6px; line-height: 1.5; }
+  .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+  .product-price { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--gold); }
+  .btn-order {
+    background: var(--gold); color: #fff;
+    border: none; border-radius: 50px;
+    padding: 8px 18px; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; transition: all var(--transition);
+    font-family: 'DM Sans', sans-serif;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-order:hover { background: var(--gold-dark); transform: scale(1.04); }
+
+  /* Reset filter button */
+  .reset-filter-btn {
+    background: var(--gold); color: #fff;
+    border: none; border-radius: 50px;
+    padding: 10px 24px; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; margin-top: 20px; display: inline-block;
+    transition: all var(--transition);
+  }
+  .reset-filter-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+  /* ── HOW IT WORKS ── */
+  .hiw-bg { background: var(--bg3); }
+  .hiw-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; position: relative; }
+  .hiw-steps::before {
+    content: ''; position: absolute; top: 36px; left: 10%; right: 10%;
+    height: 2px; background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0.3;
+  }
+  .hiw-step {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 24px;
+    position: relative; text-align: center;
+    transition: all var(--transition);
+  }
+  .hiw-step:hover { border-color: var(--gold); box-shadow: var(--shadow); }
+  .hiw-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--gold); color: #fff;
+    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .hiw-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+  .hiw-step p { font-size: 0.85rem; color: var(--text3); line-height: 1.6; }
+  .hiw-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+  /* ── TRUST ── */
+  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .trust-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px;
+    display: flex; gap: 16px; align-items: flex-start;
+    transition: all var(--transition);
+  }
+  .trust-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .trust-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(201,151,58,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .trust-text h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+  .trust-text p { font-size: 0.82rem; color: var(--text3); line-height: 1.5; }
+
+  /* ── TESTIMONIALS ── */
+  .testi-bg { background: var(--bg3); }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .testi-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px;
+    transition: all var(--transition);
+  }
+  .testi-card:hover { border-color: rgba(201,151,58,0.4); box-shadow: var(--shadow); }
+  .testi-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 14px; letter-spacing: 2px; }
+  .testi-quote { font-size: 0.92rem; line-height: 1.7; color: var(--text2); font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .testi-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; color: #fff; font-size: 0.85rem;
+  }
+  .testi-name { font-size: 0.88rem; font-weight: 600; }
+  .testi-location { font-size: 0.75rem; color: var(--text3); }
+
+  /* ── FAQ ── */
+  .faq-list { max-width: 720px; margin: 3rem auto 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--border); padding: 22px 0;
+    cursor: pointer;
+  }
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+  .faq-q {
+    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .faq-icon { color: var(--gold); font-size: 1.2rem; transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 0.9rem; color: var(--text2); line-height: 1.7;
+    margin-top: 0; max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, margin-top 0.35s ease;
+  }
+  .faq-item.open .faq-a { max-height: 200px; margin-top: 12px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: #fff; padding: 60px 5% 30px;
+  }
+  [data-theme="dark"] footer { background: #0A0908; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 3rem; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .footer-brand .nav-logo { font-size: 1.8rem; color: #fff; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 12px; line-height: 1.7; }
+  .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; cursor: pointer; transition: all var(--transition);
+  }
+  .social-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .footer-col h5 {
+    font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { font-size: 0.88rem; color: rgba(255,255,255,0.7); transition: color var(--transition); }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-wa {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #25D366; color: #fff;
+    border-radius: 50px; padding: 9px 20px;
+    font-size: 0.85rem; font-weight: 600;
+    transition: all var(--transition);
+  }
+  .footer-wa:hover { background: #1ebe5a; transform: translateY(-1px); }
+
+  /* ── WA FLOATING BTN ── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 90;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #25D366; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    cursor: pointer; transition: all var(--transition);
+    animation: fadeUp 1s 0.5s ease both;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-visual { display: none; }
+    .hero { min-height: 90vh; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu {
+      position: fixed; top: 70px; left: 0; right: 0;
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      padding: 20px 5%; display: none; flex-direction: column; gap: 16px; z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1rem; font-weight: 500; color: var(--text2); padding: 8px 0; border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 600px) {
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .hiw-steps::before { display: none; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Pulse<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+    <a href="https://wa.me/260773082934?text=Hello%20Pulse!%20I'd%20like%20to%20place%20an%20order." target="_blank"><button class="btn-nav">Order via WhatsApp</button></a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#categories" onclick="closeMobileMenu()">Categories</a>
+  <a href="#products" onclick="closeMobileMenu()">Products</a>
+  <a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="https://wa.me/260773082934" target="_blank" style="color:var(--gold)">📲 Order on WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Brought to You by Horizon</div>
+    <h1>Tech That <em>Moves</em> With You.</h1>
+    <p class="hero-sub">Laptops, accessories, and essentials — delivered fast, priced smart, and built for the modern student and professional.</p>
+    <div class="hero-cta">
+      <a href="#products"><button class="btn-primary">🛍️ Shop Now</button></a>
+      <a href="#how-it-works"><button class="btn-secondary">How It Works →</button></a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Products</div></div>
+      <div class="stat"><div class="stat-num">48hr</div><div class="stat-label">Delivery</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Happy Customers</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-float">
+      <div class="hero-card-img">💻</div>
+      <div class="hero-card-info">
+        <h4>Refurbished HP EliteBook</h4>
+        <p>Intel Core i5 · 8GB RAM · 256GB SSD</p>
+      </div>
+      <div class="hero-card-footer">
+        <span class="hero-price">K 4,200</span>
+        <span class="hero-badge">⚡ Hot Deal</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories-bg" id="categories">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Browse</div>
+      <h2 class="section-title">Shop by Category</h2>
+      <p class="section-sub">Everything you need in one place.</p>
+    </div>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="filterProducts('Laptops')">
+      <span class="cat-icon">💻</span>
+      <div class="cat-name">Laptops</div>
+      <div class="cat-count">Refurbished & New</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('Chargers')">
+      <span class="cat-icon">🔌</span>
+      <div class="cat-name">Chargers & Cables</div>
+      <div class="cat-count">HP, Dell, Universal</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('Accessories')">
+      <span class="cat-icon">🖱️</span>
+      <div class="cat-name">Accessories</div>
+      <div class="cat-count">Mice, Keyboards & More</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('Storage')">
+      <span class="cat-icon">💾</span>
+      <div class="cat-name">Storage Devices</div>
+      <div class="cat-count">Flash Drives & SSDs</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('Gaming')">
+      <span class="cat-icon">🎮</span>
+      <div class="cat-name">Gaming Gear</div>
+      <div class="cat-count">Controllers, Headsets</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('')">
+      <span class="cat-icon">✨</span>
+      <div class="cat-name">View All</div>
+      <div class="cat-count">All products</div>
+    </div>
+  </div>
+  <div style="text-align: center;">
+    <button class="reset-filter-btn" onclick="resetFilters()">🔄 View All Products</button>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Featured</div>
+      <h2 class="section-title">Top Products</h2>
+      <p class="section-sub">Quality gear at student-friendly prices.</p>
+    </div>
+    <a href="#" class="view-all" onclick="resetFilters(); return false;">View All <span>→</span></a>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="hiw-bg" id="how-it-works">
+  <div style="text-align:center; margin-bottom: 1rem;">
+    <div class="section-label">Simple Process</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub" style="margin: 0.8rem auto 0;">Ordering is as easy as 1-2-3-4.</p>
+  </div>
+  <div class="hiw-steps">
+    <div class="hiw-step">
+      <div class="hiw-num">1</div>
+      <div class="hiw-icon">🔍</div>
+      <h4>Browse</h4>
+      <p>Explore our curated range of tech products and find exactly what you need.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">2</div>
+      <div class="hiw-icon">📲</div>
+      <h4>Order</h4>
+      <p>Tap "Order Now" and you'll be taken to WhatsApp to confirm your order with us directly.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">3</div>
+      <div class="hiw-icon">💳</div>
+      <h4>Pay Deposit</h4>
+      <p>Pay a small deposit via Mobile Money to confirm your order. We accept Airtel & MTN.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">4</div>
+      <div class="hiw-icon">📦</div>
+      <h4>Delivery</h4>
+      <p>We deliver to your doorstep or arrange a convenient pick-up point near you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section>
+  <div style="text-align:center; margin-bottom: 3rem;">
+    <div class="section-label">Why Pulse</div>
+    <h2 class="section-title">Built on Trust</h2>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-icon">⚡</div>
+      <div class="trust-text">
+        <h4>Fast Delivery</h4>
+        <p>Most orders delivered within 24–48 hours in Lusaka. Out-of-town shipping available.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">📱</div>
+      <div class="trust-text">
+        <h4>Mobile Money Accepted</h4>
+        <p>Pay via Airtel Money or MTN Mobile Money. No card required. Simple and secure.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🎓</div>
+      <div class="trust-text">
+        <h4>Student-Friendly Pricing</h4>
+        <p>We keep prices fair and realistic. Tech shouldn't break your budget.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🛡️</div>
+      <div class="trust-text">
+        <h4>Quality Guaranteed</h4>
+        <p>All refurbished products are tested and verified before delivery.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">💬</div>
+      <div class="trust-text">
+        <h4>WhatsApp Support</h4>
+        <p>Chat with us directly. Real people, real responses — no bots.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🔄</div>
+      <div class="trust-text">
+        <h4>Easy Returns</h4>
+        <p>Something wrong? Contact us within 48 hours and we'll make it right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-bg">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Reviews</div>
+      <h2 class="section-title">What Customers Say</h2>
+    </div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Got my HP charger the next day — and at a fair price. Pulse is the real deal. Will definitely be back!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">TM</div>
+        <div><div class="testi-name">Tawanda M.</div><div class="testi-location">UNZA Student, Lusaka</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"The refurbished laptop works perfectly. I was skeptical at first but the team was very transparent. Love it!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">NK</div>
+        <div><div class="testi-name">Natasha K.</div><div class="testi-location">Freelance Designer, Lusaka</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★☆</div>
+      <p class="testi-quote">"Ordered a wireless mouse and a flash drive. Both arrived within 24 hours. Great service, friendly staff!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">CS</div>
+        <div><div class="testi-name">Chanda S.</div><div class="testi-location">Office Admin, Kitwe</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div style="text-align:center; margin-bottom:1rem;">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Got Questions?</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">How do I place an order? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Simply click the "Order Now" button on any product and you'll be redirected to our WhatsApp where you can confirm your order with one of our team members.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">How much deposit do I need to pay? <span class="faq-icon">+</span></div>
+      <div class="faq-a">A deposit of 30–50% of the product price is required to confirm your order. The balance is paid on delivery. We accept Airtel Money and MTN Mobile Money.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Do you deliver outside Lusaka? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes! We can ship nationwide via bus or courier. Shipping costs and delivery times vary by location. Contact us on WhatsApp for details.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Are the refurbished laptops reliable? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Absolutely. All refurbished laptops are thoroughly tested and graded before sale. We provide a description of the condition and specs so you know exactly what you're getting.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">What if I receive a faulty product? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Contact us within 48 hours of delivery. We'll either replace the item or issue a refund depending on the situation. Customer satisfaction is our priority.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Can I request a product not listed? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes! Chat with us on WhatsApp and we'll try to source it for you. We take custom orders and can often get products within a few days.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">Pulse<span style="color:var(--gold)">.</span></div>
+      <p>Brought to You by Horizon. Your go-to tech store for laptops, accessories, and everything in between.</p>
+      <div class="footer-socials">
+        <div class="social-btn" title="Facebook" onclick="window.open('https://facebook.com', '_blank')">📘</div>
+        <div class="social-btn" title="Instagram" onclick="window.open('https://instagram.com', '_blank')">📸</div>
+        <div class="social-btn" title="Twitter/X" onclick="window.open('https://twitter.com', '_blank')">🐦</div>
+        <div class="social-btn" title="TikTok" onclick="window.open('https://tiktok.com', '_blank')">🎵</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="#" onclick="filterProducts('Laptops'); return false;">Laptops</a></li>
+        <li><a href="#" onclick="filterProducts('Chargers'); return false;">Chargers & Cables</a></li>
+        <li><a href="#" onclick="filterProducts('Accessories'); return false;">Accessories</a></li>
+        <li><a href="#" onclick="filterProducts('Storage'); return false;">Storage Devices</a></li>
+        <li><a href="#" onclick="filterProducts('Gaming'); return false;">Gaming Gear</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Pulse</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="https://wa.me/260773082934" target="_blank">📲 WhatsApp</a></li>
+        <li><a href="mailto:hello@pulse.zm">✉️ hello@pulse.zm</a></li>
+        <li><a href="#">📍 Lusaka, Zambia</a></li>
+      </ul>
+      <a href="https://wa.me/260773082934?text=Hello%20Pulse!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="footer-wa" style="margin-top:16px; display:inline-flex;">
+        💬 Chat with Us
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Pulse by Horizon. All rights reserved.</p>
+    <p>Made with ❤️ in Zambia</p>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/260773082934?text=Hello%20Pulse!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="wa-float" title="Order on WhatsApp">💬</a>
+
+<script>
+  // Products data
+  const products = [
+    {
+      name: "Refurbished HP EliteBook 840",
+      desc: "Intel Core i5, 8GB RAM, 256GB SSD. Tested & graded. Great for students & professionals.",
+      price: "K 4,200",
+      icon: "💻",
+      category: "Laptops",
+      badge: "Hot Deal",
+      badgeType: "hot",
+      wa: "I'd like to order a Refurbished HP EliteBook 840 — K 4,200"
+    },
+    {
+      name: "Refurbished HP ProBook 450",
+      desc: "Intel Core i3, 4GB RAM, 500GB HDD. Budget-friendly and reliable.",
+      price: "K 2,800",
+      icon: "💻",
+      category: "Laptops",
+      badge: "Available on Order",
+      badgeType: "order",
+      wa: "I'd like to order a Refurbished HP ProBook 450 — K 2,800"
+    },
+    {
+      name: "HP 65W Laptop Charger",
+      desc: "Compatible with most HP laptops. Fast charging, durable cable with overheat protection.",
+      price: "K 180",
+      icon: "🔌",
+      category: "Chargers",
+      badge: "In Stock",
+      badgeType: "hot",
+      wa: "I'd like to order an HP 65W Laptop Charger — K 180"
+    },
+    {
+      name: "Universal USB-C Charger",
+      desc: "65W PD fast charge. Works with MacBooks, Samsung, Dell XPS and more.",
+      price: "K 220",
+      icon: "⚡",
+      category: "Chargers",
+      badge: "Available on Order",
+      badgeType: "order",
+      wa: "I'd like to order a Universal USB-C Charger — K 220"
+    },
+    {
+      name: "Wireless Mouse",
+      desc: "Ergonomic 2.4GHz wireless mouse. 1600 DPI, USB nano receiver. Silent click.",
+      price: "K 95",
+      icon: "🖱️",
+      category: "Accessories",
+      badge: "In Stock",
+      badgeType: "hot",
+      wa: "I'd like to order a Wireless Mouse — K 95"
+    },
+    {
+      name: "Laptop Cooling Pad",
+      desc: "Dual fan cooling pad with USB passthrough. Fits 15.6\" laptops. Adjustable stand.",
+      price: "K 130",
+      icon: "❄️",
+      category: "Accessories",
+      badge: "In Stock",
+      badgeType: "hot",
+      wa: "I'd like to order a Laptop Cooling Pad — K 130"
+    },
+    {
+      name: "32GB USB Flash Drive",
+      desc: "High-speed USB 3.0 flash drive. 32GB storage. Plug and play. Compact design.",
+      price: "K 55",
+      icon: "💾",
+      category: "Storage",
+      badge: "In Stock",
+      badgeType: "hot",
+      wa: "I'd like to order a 32GB USB Flash Drive — K 55"
+    },
+    {
+      name: "HDMI Cable 1.8m",
+      desc: "4K-compatible HDMI 2.0 cable. Gold-plated connectors. 1.8 metre length.",
+      price: "K 45",
+      icon: "🔗",
+      category: "Accessories",
+      badge: "In Stock",
+      badgeType: "hot",
+      wa: "I'd like to order an HDMI Cable — K 45"
+    },
+    {
+      name: "Gaming Headset",
+      desc: "Stereo surround sound. LED lighting. Works on PC, PS4, and Xbox. Mic included.",
+      price: "K 260",
+      icon: "🎧",
+      category: "Gaming",
+      badge: "Available on Order",
+      badgeType: "order",
+      wa: "I'd like to order a Gaming Headset — K 260"
+    }
+  ];
+
+  const PHONE = "260773082934";
+
+  function buildCard(p) {
+    return `
+      <div class="product-card" data-category="${p.category}">
+        <div class="product-img">
+          <span class="product-badge ${p.badgeType === 'order' ? 'order' : ''}">${p.badge}</span>
+          ${p.icon}
+        </div>
+        <div class="product-body">
+          <div class="product-name">${p.name}</div>
+          <div class="product-desc">${p.desc}</div>
+          <div class="product-footer">
+            <span class="product-price">${p.price}</span>
+            <button class="btn-order" onclick="orderOnWA('${encodeURIComponent(p.wa)}')">
+              💬 Order Now
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderProducts(filter = '') {
+    const grid = document.getElementById('productsGrid');
+    const filtered = filter ? products.filter(p => p.category === filter) : products;
+    grid.innerHTML = filtered.map(buildCard).join('');
+  }
+
+  function filterProducts(cat) {
+    renderProducts(cat);
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetFilters() {
+    renderProducts('');
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function orderOnWA(msg) {
+    const url = `https://wa.me/${PHONE}?text=${msg}`;
+    window.open(url, '_blank');
+  }
+
+  // FAQ
+  function toggleFaq(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  // Theme toggle
+  const themeToggle = document.getElementById('themeToggle');
+  let dark = false;
+  themeToggle.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    themeToggle.textContent = dark ? '☀️ Light' : '🌙 Dark';
+  });
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+  // Init
+  renderProducts();
+</script>
+</body>
+</html>
